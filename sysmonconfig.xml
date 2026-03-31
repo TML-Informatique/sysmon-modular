@@ -1875,6 +1875,10 @@
         <Image condition="is">C:\Program Files\RES Software\Workspace Manager\pfwsmgr.exe</Image>
         <Image condition="begin with">C:\Program Files (x86)\Kaspersky Lab\Kaspersky Internet Security </Image>
         <Image condition="begin with">C:\Program Files\Kaspersky Lab\Kaspersky Internet Security </Image>
+        <Rule groupRelation="and">
+          <Image condition="image">svchost.exe</Image>
+          <TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\location\NonPackaged\C:#Program Files (x86)#Lenovo#VantageService</TargetObject>
+        </Rule>
         <Image condition="is">C:\Program Files\McAfee\Endpoint Encryption Agent\MfeEpeHost.exe</Image>
         <Image condition="is">C:\Program Files\McAfee\Endpoint Security\Adaptive Threat Protection\mfeatp.exe</Image>
         <Image condition="is">C:\Program Files\McAfee\Endpoint Security\Endpoint Security Platform\mfeesp.exe</Image>
