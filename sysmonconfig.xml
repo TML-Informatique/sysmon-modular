@@ -2409,7 +2409,6 @@
           <TargetFilename condition="end with">.vba</TargetFilename>
           <TargetFilename condition="end with">.hta</TargetFilename>
           <TargetFilename condition="end with">.jar</TargetFilename>
-          <TargetFilename condition="end with">.js</TargetFilename>
           <TargetFilename condition="end with">.cmd</TargetFilename>
           <TargetFilename condition="end with">.sh</TargetFilename>
           <TargetFilename condition="end with">.sct</TargetFilename>
