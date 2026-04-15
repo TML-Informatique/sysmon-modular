@@ -2371,6 +2371,49 @@
     <!-- Default set to disabled due to disk space implications, enable with care!-->
     <RuleGroup groupRelation="or">
       <FileDelete onmatch="include">
+        <Rule name="Office documents" groupRelation="or">
+          <TargetFilename condition="end with">.doc</TargetFilename>
+          <TargetFilename condition="end with">.dot</TargetFilename>
+          <TargetFilename condition="end with">.docx</TargetFilename>
+          <TargetFilename condition="end with">.docm</TargetFilename>
+          <TargetFilename condition="end with">.doc</TargetFilename>
+          <TargetFilename condition="end with">.dot</TargetFilename>
+          <TargetFilename condition="end with">.docx</TargetFilename>
+          <TargetFilename condition="end with">.docm</TargetFilename>
+          <TargetFilename condition="end with">.dotx</TargetFilename>
+          <TargetFilename condition="end with">.dotm</TargetFilename>
+          <TargetFilename condition="end with">.docb</TargetFilename>
+          <TargetFilename condition="end with">.xls</TargetFilename>
+          <TargetFilename condition="end with">.xlt</TargetFilename>
+          <TargetFilename condition="end with">.xlm</TargetFilename>
+          <TargetFilename condition="end with">.xlsx</TargetFilename>
+          <TargetFilename condition="end with">.xlsm</TargetFilename>
+          <TargetFilename condition="end with">.xltx</TargetFilename>
+          <TargetFilename condition="end with">.xltm</TargetFilename>
+          <TargetFilename condition="end with">.xlsb</TargetFilename>
+          <TargetFilename condition="end with">.ppt</TargetFilename>
+          <TargetFilename condition="end with">.pptx</TargetFilename>
+          <TargetFilename condition="end with">.pptm</TargetFilename>
+          <TargetFilename condition="end with">.potx</TargetFilename>
+          <TargetFilename condition="end with">.potm</TargetFilename>
+          <TargetFilename condition="end with">.odt</TargetFilename>
+          <TargetFilename condition="end with">.ods</TargetFilename>
+          <TargetFilename condition="end with">.odp</TargetFilename>
+          <TargetFilename condition="end with">.pdf</TargetFilename>
+          <TargetFilename condition="end with">.rtf</TargetFilename>
+        </Rule>
+        <Rule name="Scripts and payloads" groupRelation="or">
+          <TargetFilename condition="end with">.aspx</TargetFilename>
+          <TargetFilename condition="end with">.bat</TargetFilename>
+          <TargetFilename condition="end with">.vbs</TargetFilename>
+          <TargetFilename condition="end with">.vba</TargetFilename>
+          <TargetFilename condition="end with">.hta</TargetFilename>
+          <TargetFilename condition="end with">.jar</TargetFilename>
+          <TargetFilename condition="end with">.cmd</TargetFilename>
+          <TargetFilename condition="end with">.sh</TargetFilename>
+          <TargetFilename condition="end with">.sct</TargetFilename>
+          <TargetFilename condition="end with">.lnk</TargetFilename>
+        </Rule>
         <TargetFilename condition="contains all">C:\Program Files\Microsoft SQL Server;\Shared\ErrorDumps</TargetFilename>
         <TargetFilename condition="contains all">C:\Program Files\Microsoft SQL Server;\DataDumps</TargetFilename>
         <TargetFilename condition="contains all">C:\Program Files (X86)\Microsoft SQL Server\;Shared\ErrorDumps</TargetFilename>
@@ -2795,6 +2838,10 @@
         <Rule name="PowerShell Profile Deletion" groupRelation="and">
           <TargetFilename condition="contains">AppData\Local\Microsoft\Windows\PowerShell\StartupProfileData-Interactive</TargetFilename>
           <Image condition="is">C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe</Image>
+        </Rule>
+        <Rule groupRelation="and">
+          <Image condition="is">C:\Windows\System32\svchost.exe</Image>
+          <TargetFilename condition="end with">.tmp</TargetFilename>
         </Rule>
       </FileDelete>
     </RuleGroup>
