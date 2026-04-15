@@ -10,12 +10,6 @@
 	<!-- https://docs.velociraptor.app/exchange/artifacts/pages/sysmonarchivemonitor/ -->
 	<RuleGroup groupRelation="or">
 		<FileDelete onmatch="include">
-			<Rule  name="Executables" groupRelation="and">
-				<IsExecutable>True</IsExecutable><!--archive any executable despite extension..-->
-				<!-- simple exclusions in rule - more advanced in the exlcude section below-->
-				<Image condition="is not">C:\Windows\system32\cleanmgr.exe</Image>
-				<TargetFilename	condition="not end with">.mui</TargetFilename>
-			</Rule>
 			<Rule name="Office documents" groupRelation="or">
 				<TargetFilename condition="end with">.doc</TargetFilename>
 				<TargetFilename condition="end with">.dot</TargetFilename>
@@ -50,7 +44,6 @@
 			<Rule name="Scripts and payloads" groupRelation="or">
 				<TargetFilename condition="end with">.aspx</TargetFilename>
 				<TargetFilename condition="end with">.bat</TargetFilename>
-				<TargetFilename condition="end with">.ps1</TargetFilename>
 				<TargetFilename condition="end with">.vbs</TargetFilename>
 				<TargetFilename condition="end with">.vba</TargetFilename>
 				<TargetFilename condition="end with">.hta</TargetFilename>
@@ -60,14 +53,6 @@
 				<TargetFilename condition="end with">.sh</TargetFilename>
 				<TargetFilename condition="end with">.sct</TargetFilename>
 				<TargetFilename condition="end with">.lnk</TargetFilename>
-			</Rule>
-			<Rule name="other interesting files" groupRelation="or">
-				<TargetFilename condition="end with">.bin</TargetFilename>
-				<TargetFilename condition="end with">.iso</TargetFilename>
-				<TargetFilename condition="end with">.7z</TargetFilename>
-				<TargetFilename condition="end with">.msi</TargetFilename>
-				<TargetFilename condition="end with">.dmp</TargetFilename>
-				<TargetFilename condition="end with">.reg</TargetFilename>
 			</Rule>
 		</FileDelete>
 		<FileDelete onmatch="exclude">
