@@ -1,0 +1,13 @@
+<Sysmon schemaversion="4.90">
+  <EventFiltering>
+    <RuleGroup name="PowerShell DNS transport" groupRelation="or">
+      <NetworkConnect onmatch="exclude">
+        <!-- DNS Event 22 retains the query name and results. -->
+        <Rule name="Native PowerShell to DNS servers" groupRelation="and">
+          <Image condition="image">powershell.exe</Image>
+          <DestinationPort condition="is">53</DestinationPort>
+        </Rule>
+      </NetworkConnect>
+    </RuleGroup>
+  </EventFiltering>
+</Sysmon>

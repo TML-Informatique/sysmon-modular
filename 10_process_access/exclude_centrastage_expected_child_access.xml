@@ -1,0 +1,40 @@
+<Sysmon schemaversion="4.90">
+  <EventFiltering>
+    <RuleGroup name="CentraStage expected child access" groupRelation="or">
+      <ProcessAccess onmatch="exclude">
+        <!-- AEMAgent repeatedly opens its own short-lived discovery and automation children. -->
+        <!-- Keep access to LSASS and every target not explicitly listed here. -->
+        <Rule name="AEMAgent to arp" groupRelation="and">
+          <SourceImage condition="is">C:\ProgramData\CentraStage\AEMAgent\AEMAgent.exe</SourceImage>
+          <TargetImage condition="image">arp.exe</TargetImage>
+          <GrantedAccess condition="is">0x1fffff</GrantedAccess>
+        </Rule>
+        <Rule name="AEMAgent to PowerShell" groupRelation="and">
+          <SourceImage condition="is">C:\ProgramData\CentraStage\AEMAgent\AEMAgent.exe</SourceImage>
+          <TargetImage condition="image">powershell.exe</TargetImage>
+          <GrantedAccess condition="is">0x1fffff</GrantedAccess>
+        </Rule>
+        <Rule name="AEMAgent to route" groupRelation="and">
+          <SourceImage condition="is">C:\ProgramData\CentraStage\AEMAgent\AEMAgent.exe</SourceImage>
+          <TargetImage condition="image">route.exe</TargetImage>
+          <GrantedAccess condition="is">0x1fffff</GrantedAccess>
+        </Rule>
+        <Rule name="AEMAgent to netsh" groupRelation="and">
+          <SourceImage condition="is">C:\ProgramData\CentraStage\AEMAgent\AEMAgent.exe</SourceImage>
+          <TargetImage condition="image">netsh.exe</TargetImage>
+          <GrantedAccess condition="is">0x1fffff</GrantedAccess>
+        </Rule>
+        <Rule name="AEMAgent to WebRemote" groupRelation="and">
+          <SourceImage condition="is">C:\ProgramData\CentraStage\AEMAgent\AEMAgent.exe</SourceImage>
+          <TargetImage condition="image">RMM.WebRemote.exe</TargetImage>
+          <GrantedAccess condition="is any">0x1fffff;0x1410</GrantedAccess>
+        </Rule>
+        <Rule name="AEMAgent to CagService" groupRelation="and">
+          <SourceImage condition="is">C:\ProgramData\CentraStage\AEMAgent\AEMAgent.exe</SourceImage>
+          <TargetImage condition="image">CagService.exe</TargetImage>
+          <GrantedAccess condition="is">0x1410</GrantedAccess>
+        </Rule>
+      </ProcessAccess>
+    </RuleGroup>
+  </EventFiltering>
+</Sysmon>

@@ -1,0 +1,10 @@
+<Sysmon schemaversion="4.90">
+  <EventFiltering>
+    <RuleGroup name="CentraStage connectivity health check" groupRelation="or">
+      <DnsQuery onmatch="exclude">
+        <!-- Exact recurring connectivity probe; preserve every other DNS query. -->
+        <QueryName condition="is">google.com</QueryName>
+      </DnsQuery>
+    </RuleGroup>
+  </EventFiltering>
+</Sysmon>

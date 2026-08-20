@@ -11,6 +11,15 @@
                <TargetFilename condition="contains all">C:\Windows\Temp;__PSScriptPolicyTest;.ps1</TargetFilename>
                <User condition="is">NT AUTHORITY\SYSTEM</User>
             </Rule>
+            <Rule groupRelation="and">
+               <!-- Newer Windows builds use SystemTemp for native PowerShell policy tests. -->
+               <Image condition="is">C:\Windows\system32\WindowsPowerShell\v1.0\powershell.exe</Image>
+               <TargetFilename condition="contains all">C:\Windows\SystemTemp\;__PSScriptPolicyTest_;.ps1</TargetFilename>
+            </Rule>
+            <Rule groupRelation="and">
+               <Image condition="is">C:\Windows\system32\WindowsPowerShell\v1.0\powershell.exe</Image>
+               <TargetFilename condition="contains all">C:\Windows\SystemTemp\;__PSScriptPolicyTest_;.psm1</TargetFilename>
+            </Rule>
          </FileCreate>
       </RuleGroup>
    </EventFiltering>

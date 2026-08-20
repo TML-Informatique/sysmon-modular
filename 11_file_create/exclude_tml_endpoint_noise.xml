@@ -1,0 +1,22 @@
+<Sysmon schemaversion="4.90">
+  <EventFiltering>
+    <RuleGroup name="TML managed endpoint noise" groupRelation="or">
+      <FileCreate onmatch="exclude">
+        <Rule name="AEMAgent staged PowerShell scripts" groupRelation="and">
+          <!-- Event 1 retains the child PowerShell command and parent relationship. -->
+          <Image condition="is">C:\ProgramData\CentraStage\AEMAgent\AEMAgent.exe</Image>
+          <TargetFilename condition="begin with">C:\ProgramData\CentraStage\AEMAgent\Temp\</TargetFilename>
+          <TargetFilename condition="end with">.ps1</TargetFilename>
+        </Rule>
+        <Rule name="PowerShell noninteractive startup cache" groupRelation="and">
+          <Image condition="is">C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe</Image>
+          <TargetFilename condition="is">C:\Windows\System32\config\systemprofile\AppData\Local\Microsoft\Windows\PowerShell\StartupProfileData-NonInteractive</TargetFilename>
+        </Rule>
+        <Rule name="Covalence startup logs" groupRelation="and">
+          <Image condition="is">C:\Program Files\Field Effect\Covalence\bin\covalence-endpoint.exe</Image>
+          <TargetFilename condition="begin with">C:\ProgramData\Field Effect\Covalence\data\KmLog\</TargetFilename>
+        </Rule>
+      </FileCreate>
+    </RuleGroup>
+  </EventFiltering>
+</Sysmon>

@@ -1,0 +1,13 @@
+<Sysmon schemaversion="4.90">
+  <EventFiltering>
+    <RuleGroup name="PowerShell DISM extraction in Windows Temp" groupRelation="or">
+      <FileExecutableDetected onmatch="exclude">
+        <!-- Narrow alternative to dropping include_shells.xml: retain PowerShell PE writes elsewhere. -->
+        <Rule name="Native PowerShell Windows Temp PE" groupRelation="and">
+          <Image condition="image">powershell.exe</Image>
+          <TargetFilename condition="begin with">C:\Windows\Temp\</TargetFilename>
+        </Rule>
+      </FileExecutableDetected>
+    </RuleGroup>
+  </EventFiltering>
+</Sysmon>

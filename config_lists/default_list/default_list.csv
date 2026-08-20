@@ -40,6 +40,7 @@ filepath,priority
 1_process_creation/include_windows_defender_tampering.xml,10
 1_process_creation/include_windows_remote_management.xml,10
 1_process_creation/include_wsl.xml,10
+10_process_access/exclude_centrastage_expected_child_access.xml,10
 10_process_access/exclude_chrome_sw_reporter_all.xml,10
 10_process_access/exclude_chrome_sw_reporter.xml,10
 10_process_access/exclude_lsass_noise.xml,10
@@ -70,6 +71,7 @@ filepath,priority
 11_file_create/exclude_outlook_profile.xml,10
 11_file_create/exclude_provtool.xml,10
 11_file_create/exclude_psscriptpolicytest.xml,10
+11_file_create/exclude_tml_endpoint_noise.xml,10
 11_file_create/exclude_sccm.xml,10
 11_file_create/exclude_scheduled_task_noise.xml,10
 11_file_create/exclude_windows_heartbeat.xml,10
@@ -205,6 +207,7 @@ filepath,priority
 17_18_pipe_event/exclude_mozilla_firefox.xml,10
 17_18_pipe_event/exclude_MSSQL.xml,10
 17_18_pipe_event/exclude_postgres.xml,10
+17_18_pipe_event/exclude_native_powershell_pshost.xml,10
 17_18_pipe_event/exclude_windows_generic.xml,10
 17_18_pipe_event/include_all.xml,10
 17_18_pipe_event/include_atsvc.xml,10
@@ -231,6 +234,7 @@ filepath,priority
 22_dns_query/exclude_ads.xml,10
 22_dns_query/exclude_browser_updates.xml,10
 22_dns_query/exclude_cdn_networks.xml,10
+22_dns_query/exclude_centrastage_health_check.xml,10
 22_dns_query/exclude_local_machine.xml,10
 22_dns_query/exclude_microsoft_defender_atp.xml,10
 22_dns_query/exclude_microsoft_domains.xml,10
@@ -247,6 +251,7 @@ filepath,priority
 26_file_delete_deteted/include_user_writable_folders.xml,10
 26_file_delete_deteted/include_writable_folders.xml,10
 3_network_connection_initiated/exclude_lsass_kerberos.xml,10
+3_network_connection_initiated/exclude_powershell_dns.xml,10
 3_network_connection_initiated/exclude_rdp_over_udp.xml,10
 3_network_connection_initiated/exclude_windows_update.xml,10
 3_network_connection_initiated/include_3rd_party_remote_management.xml,10

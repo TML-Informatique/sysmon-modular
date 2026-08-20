@@ -879,6 +879,10 @@
         <Image condition="image">OneDriveStandaloneUpdater.exe</Image>
         <Image condition="end with">ownCloud\owncloud.exe</Image>
         <Image condition="is">C:\Program Files\Palo Alto Networks\Traps\cyserver.exe</Image>
+        <Rule name="Native PowerShell to DNS servers" groupRelation="and">
+          <Image condition="image">powershell.exe</Image>
+          <DestinationPort condition="is">53</DestinationPort>
+        </Rule>
         <Rule groupRelation="and">
           <Protocol condition="is">udp</Protocol>
           <DestinationPort condition="is">3389</DestinationPort>
@@ -1077,8 +1081,8 @@
           <OriginalFileName condition="is">scrobj.dll</OriginalFileName>
         </Rule>
         <Rule groupRelation="and">
-          <Image condition="is">powershell.exe</Image>
-          <OriginalFileName condition="excludes all">mscoree.dll;mscoreei.dll;mscoreeis.dll;clr.dll;clrjit.dll</OriginalFileName>
+          <Image condition="image">powershell.exe</Image>
+          <OriginalFileName condition="is any">UrlMon.dll;mpclient.dll;MpOAV.dll;mscoree.dll;mscoreei.dll;clr.dll;clrjit.dll;mscorlib.dll;System.Management.Automation.dll</OriginalFileName>
         </Rule>
         <Rule groupRelation="and">
           <Image name="technique_id=T1137,technique_name=Office Application Startup" condition="end with">VSTOInstaller.exe</Image>
@@ -1260,6 +1264,36 @@
         <SourceImage condition="contains all">C:\WindowsAzure\GuestAgent_;CollectGuestLogs.exe</SourceImage>
         <SourceImage condition="is">C:\Program Files\Microsoft Monitoring Agent\Agent\HealthService.exe</SourceImage>
         <SourceImage condition="is">C:\Windows\CarbonBlack\cb.exe</SourceImage>
+        <Rule name="AEMAgent to arp" groupRelation="and">
+          <SourceImage condition="is">C:\ProgramData\CentraStage\AEMAgent\AEMAgent.exe</SourceImage>
+          <TargetImage condition="image">arp.exe</TargetImage>
+          <GrantedAccess condition="is">0x1fffff</GrantedAccess>
+        </Rule>
+        <Rule name="AEMAgent to PowerShell" groupRelation="and">
+          <SourceImage condition="is">C:\ProgramData\CentraStage\AEMAgent\AEMAgent.exe</SourceImage>
+          <TargetImage condition="image">powershell.exe</TargetImage>
+          <GrantedAccess condition="is">0x1fffff</GrantedAccess>
+        </Rule>
+        <Rule name="AEMAgent to route" groupRelation="and">
+          <SourceImage condition="is">C:\ProgramData\CentraStage\AEMAgent\AEMAgent.exe</SourceImage>
+          <TargetImage condition="image">route.exe</TargetImage>
+          <GrantedAccess condition="is">0x1fffff</GrantedAccess>
+        </Rule>
+        <Rule name="AEMAgent to netsh" groupRelation="and">
+          <SourceImage condition="is">C:\ProgramData\CentraStage\AEMAgent\AEMAgent.exe</SourceImage>
+          <TargetImage condition="image">netsh.exe</TargetImage>
+          <GrantedAccess condition="is">0x1fffff</GrantedAccess>
+        </Rule>
+        <Rule name="AEMAgent to WebRemote" groupRelation="and">
+          <SourceImage condition="is">C:\ProgramData\CentraStage\AEMAgent\AEMAgent.exe</SourceImage>
+          <TargetImage condition="image">RMM.WebRemote.exe</TargetImage>
+          <GrantedAccess condition="is any">0x1fffff;0x1410</GrantedAccess>
+        </Rule>
+        <Rule name="AEMAgent to CagService" groupRelation="and">
+          <SourceImage condition="is">C:\ProgramData\CentraStage\AEMAgent\AEMAgent.exe</SourceImage>
+          <TargetImage condition="image">CagService.exe</TargetImage>
+          <GrantedAccess condition="is">0x1410</GrantedAccess>
+        </Rule>
         <Rule name="Exclude Chrome SW Reporter Accessing Anything" groupRelation="and">
           <SourceImage condition="image">software_reporter_tool.exe</SourceImage>
           <GrantedAccess condition="is">0x1410</GrantedAccess>
@@ -1520,12 +1554,33 @@
           <TargetFilename condition="contains all">C:\Windows\Temp;__PSScriptPolicyTest;.ps1</TargetFilename>
           <User condition="is">NT AUTHORITY\SYSTEM</User>
         </Rule>
+        <Rule groupRelation="and">
+          <Image condition="is">C:\Windows\system32\WindowsPowerShell\v1.0\powershell.exe</Image>
+          <TargetFilename condition="contains all">C:\Windows\SystemTemp\;__PSScriptPolicyTest_;.ps1</TargetFilename>
+        </Rule>
+        <Rule groupRelation="and">
+          <Image condition="is">C:\Windows\system32\WindowsPowerShell\v1.0\powershell.exe</Image>
+          <TargetFilename condition="contains all">C:\Windows\SystemTemp\;__PSScriptPolicyTest_;.psm1</TargetFilename>
+        </Rule>
         <Image condition="is">C:\WINDOWS\CCM\CcmExec.exe</Image>
         <TargetFilename condition="begin with">C:\Windows\CCM</TargetFilename>
         <TargetFilename condition="begin with">C:\Windows\System32\Tasks\Microsoft\Windows\PLA\FabricTraces</TargetFilename>
         <TargetFilename condition="begin with">C:\Windows\System32\Tasks\Microsoft\Windows\SoftwareProtectionPlatform\SvcRestartTask</TargetFilename>
         <TargetFilename condition="begin with">C:\Windows\System32\Tasks\Microsoft\Windows\Customer Experience Improvement Program\Server\ServerRoleUsageCollector</TargetFilename>
         <TargetFilename condition="begin with">C:\Windows\System32\Tasks\Microsoft\Windows\Customer Experience Improvement Program\Server\ServerCeipAssistant</TargetFilename>
+        <Rule name="AEMAgent staged PowerShell scripts" groupRelation="and">
+          <Image condition="is">C:\ProgramData\CentraStage\AEMAgent\AEMAgent.exe</Image>
+          <TargetFilename condition="begin with">C:\ProgramData\CentraStage\AEMAgent\Temp\</TargetFilename>
+          <TargetFilename condition="end with">.ps1</TargetFilename>
+        </Rule>
+        <Rule name="PowerShell noninteractive startup cache" groupRelation="and">
+          <Image condition="is">C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe</Image>
+          <TargetFilename condition="is">C:\Windows\System32\config\systemprofile\AppData\Local\Microsoft\Windows\PowerShell\StartupProfileData-NonInteractive</TargetFilename>
+        </Rule>
+        <Rule name="Covalence startup logs" groupRelation="and">
+          <Image condition="is">C:\Program Files\Field Effect\Covalence\bin\covalence-endpoint.exe</Image>
+          <TargetFilename condition="begin with">C:\ProgramData\Field Effect\Covalence\data\KmLog\</TargetFilename>
+        </Rule>
         <Rule groupRelation="and">
           <Image condition="is">C:\Windows\System32\svchost.exe</Image>
           <TargetFilename condition="is">C:\Windows\ServiceProfiles\LocalService\AppData\Local\lastalive0.dat</TargetFilename>
@@ -2133,6 +2188,14 @@
         <PipeName condition="is">\SQLLocal\RTC</PipeName>
         <PipeName condition="is">\SQLLocal\TMSM</PipeName>
         <Image condition="is">Program Files (x86)\Microsoft SQL Server\110\DTS\binn\dtexec.exe</Image>
+        <Rule name="Windows PowerShell PSHost" groupRelation="and">
+          <Image condition="image">powershell.exe</Image>
+          <PipeName condition="begin with">\PSHost</PipeName>
+        </Rule>
+        <Rule name="PowerShell ISE PSHost" groupRelation="and">
+          <Image condition="image">powershell_ise.exe</Image>
+          <PipeName condition="begin with">\PSHost</PipeName>
+        </Rule>
         <Image condition="end with">PostgreSQL\9.6\bin\postgres.exe</Image>
         <PipeName condition="contains">\pgsignal_</PipeName>
         <Image condition="is">Program Files\Qlik\Sense\Engine\Engine.exe</Image>
@@ -2292,6 +2355,7 @@
         <QueryName condition="is">cdnjs.cloudflare.com</QueryName>
         <QueryName condition="end with">.stackassets.com</QueryName>
         <QueryName condition="end with">.steamcontent.com</QueryName>
+        <QueryName condition="is">google.com</QueryName>
         <QueryName condition="end with">.arpa.</QueryName>
         <QueryName condition="end with">.arpa</QueryName>
         <QueryName condition="end with">.msftncsi.com</QueryName>
@@ -2574,7 +2638,12 @@
     </RuleGroup>
     <!-- Event ID 29 == File Executable Detected events - Excludes -->
     <RuleGroup groupRelation="or">
-      <FileExecutableDetected onmatch="exclude" />
+      <FileExecutableDetected onmatch="exclude">
+        <Rule name="Native PowerShell Windows Temp PE" groupRelation="and">
+          <Image condition="image">powershell.exe</Image>
+          <TargetFilename condition="begin with">C:\Windows\Temp\</TargetFilename>
+        </Rule>
+      </FileExecutableDetected>
     </RuleGroup>
     <RuleGroup groupRelation="or">
       <CreateRemoteThread onmatch="include">

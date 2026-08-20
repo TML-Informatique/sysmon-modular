@@ -1,0 +1,17 @@
+<Sysmon schemaversion="4.90">
+  <EventFiltering>
+    <RuleGroup name="Native PowerShell PSHost pipes" groupRelation="or">
+      <PipeEvent onmatch="exclude">
+        <!-- Preserve PSHost pipes created by unexpected non-PowerShell images. -->
+        <Rule name="Windows PowerShell PSHost" groupRelation="and">
+          <Image condition="image">powershell.exe</Image>
+          <PipeName condition="begin with">\PSHost</PipeName>
+        </Rule>
+        <Rule name="PowerShell ISE PSHost" groupRelation="and">
+          <Image condition="image">powershell_ise.exe</Image>
+          <PipeName condition="begin with">\PSHost</PipeName>
+        </Rule>
+      </PipeEvent>
+    </RuleGroup>
+  </EventFiltering>
+</Sysmon>
