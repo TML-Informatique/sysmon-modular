@@ -252,6 +252,7 @@ filepath,priority
 26_file_delete_deteted/include_user_writable_folders.xml,10
 26_file_delete_deteted/include_writable_folders.xml,10
 3_network_connection_initiated/exclude_lsass_kerberos.xml,10
+3_network_connection_initiated/exclude_managed_endpoint_network_noise.xml,10
 3_network_connection_initiated/exclude_powershell_dns.xml,10
 3_network_connection_initiated/exclude_rdp_over_udp.xml,10
 3_network_connection_initiated/exclude_windows_update.xml,10
