@@ -34,6 +34,12 @@
           <TargetImage condition="image">CagService.exe</TargetImage>
           <GrantedAccess condition="is">0x1410</GrantedAccess>
         </Rule>
+        <Rule name="CentraStage GUI self-access" groupRelation="and">
+          <!-- GUI startup repeatedly opens its own process with full access. -->
+          <SourceImage condition="is">C:\Program Files (x86)\CentraStage\Gui.exe</SourceImage>
+          <TargetImage condition="is">C:\Program Files (x86)\CentraStage\Gui.exe</TargetImage>
+          <GrantedAccess condition="is">0x1fffff</GrantedAccess>
+        </Rule>
       </ProcessAccess>
     </RuleGroup>
   </EventFiltering>

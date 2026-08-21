@@ -1,0 +1,13 @@
+<Sysmon schemaversion="4.90">
+  <EventFiltering>
+    <RuleGroup name="CentraStage GUI runtime modules" groupRelation="or">
+      <ImageLoad onmatch="exclude">
+        <Rule name="CentraStage GUI standard .NET runtime" groupRelation="and">
+          <!-- Preserve every module not explicitly observed as routine CLR startup noise. -->
+          <Image condition="is">C:\Program Files (x86)\CentraStage\Gui.exe</Image>
+          <OriginalFileName condition="is any">clr.dll;UrlMon.dll;mscoreei.dll;mscorlib.dll;clrjit.dll;mscoree.dll</OriginalFileName>
+        </Rule>
+      </ImageLoad>
+    </RuleGroup>
+  </EventFiltering>
+</Sysmon>

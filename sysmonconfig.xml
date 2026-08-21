@@ -1076,6 +1076,10 @@
     <!-- Event ID 7 == Image Loaded - Excludes -->
     <RuleGroup groupRelation="or">
       <ImageLoad onmatch="exclude">
+        <Rule name="CentraStage GUI standard .NET runtime" groupRelation="and">
+          <Image condition="is">C:\Program Files (x86)\CentraStage\Gui.exe</Image>
+          <OriginalFileName condition="is any">clr.dll;UrlMon.dll;mscoreei.dll;mscorlib.dll;clrjit.dll;mscoree.dll</OriginalFileName>
+        </Rule>
         <Rule groupRelation="and">
           <Image condition="is">C:\Windows\System32\cscript.exe</Image>
           <OriginalFileName condition="is">scrobj.dll</OriginalFileName>
@@ -1293,6 +1297,11 @@
           <SourceImage condition="is">C:\ProgramData\CentraStage\AEMAgent\AEMAgent.exe</SourceImage>
           <TargetImage condition="image">CagService.exe</TargetImage>
           <GrantedAccess condition="is">0x1410</GrantedAccess>
+        </Rule>
+        <Rule name="CentraStage GUI self-access" groupRelation="and">
+          <SourceImage condition="is">C:\Program Files (x86)\CentraStage\Gui.exe</SourceImage>
+          <TargetImage condition="is">C:\Program Files (x86)\CentraStage\Gui.exe</TargetImage>
+          <GrantedAccess condition="is">0x1fffff</GrantedAccess>
         </Rule>
         <Rule name="Exclude Chrome SW Reporter Accessing Anything" groupRelation="and">
           <SourceImage condition="image">software_reporter_tool.exe</SourceImage>
@@ -1933,6 +1942,22 @@
         <Rule groupRelation="and">
           <Image condition="image">svchost.exe</Image>
           <TargetObject condition="begin with">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\location\NonPackaged\C:#Program Files (x86)#Lenovo#VantageService</TargetObject>
+        </Rule>
+        <Rule name="Windows Firewall epoch refresh" groupRelation="and">
+          <Image condition="is">C:\Windows\System32\svchost.exe</Image>
+          <EventType condition="is">SetValue</EventType>
+          <TargetObject condition="is">HKLM\System\CurrentControlSet\Services\SharedAccess\Epoch\Epoch</TargetObject>
+        </Rule>
+        <Rule name="Windows Firewall rule refresh" groupRelation="and">
+          <Image condition="is">C:\Windows\System32\svchost.exe</Image>
+          <EventType condition="is any">SetValue;DeleteValue</EventType>
+          <TargetObject condition="begin with">HKLM\System\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\FirewallRules\</TargetObject>
+        </Rule>
+        <Rule name="CentraStage GUI BAM self-entry" groupRelation="and">
+          <Image condition="is">C:\Program Files (x86)\CentraStage\Gui.exe</Image>
+          <EventType condition="is">SetValue</EventType>
+          <TargetObject condition="contains">\Services\bam\State\UserSettings\</TargetObject>
+          <TargetObject condition="end with">\Program Files (x86)\CentraStage\Gui.exe</TargetObject>
         </Rule>
         <Image condition="is">C:\Program Files\McAfee\Endpoint Encryption Agent\MfeEpeHost.exe</Image>
         <Image condition="is">C:\Program Files\McAfee\Endpoint Security\Adaptive Threat Protection\mfeatp.exe</Image>

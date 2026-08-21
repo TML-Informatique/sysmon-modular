@@ -1,0 +1,27 @@
+<Sysmon schemaversion="4.90">
+  <EventFiltering>
+    <RuleGroup name="Managed endpoint registry churn" groupRelation="or">
+      <RegistryEvent onmatch="exclude">
+        <Rule name="Windows Firewall epoch refresh" groupRelation="and">
+          <!-- Preserve this value when written by any process other than the Windows service host. -->
+          <Image condition="is">C:\Windows\System32\svchost.exe</Image>
+          <EventType condition="is">SetValue</EventType>
+          <TargetObject condition="is">HKLM\System\CurrentControlSet\Services\SharedAccess\Epoch\Epoch</TargetObject>
+        </Rule>
+        <Rule name="Windows Firewall rule refresh" groupRelation="and">
+          <!-- Scope the observed create/delete burst to OS-authored FirewallRules values. -->
+          <Image condition="is">C:\Windows\System32\svchost.exe</Image>
+          <EventType condition="is any">SetValue;DeleteValue</EventType>
+          <TargetObject condition="begin with">HKLM\System\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\FirewallRules\</TargetObject>
+        </Rule>
+        <Rule name="CentraStage GUI BAM self-entry" groupRelation="and">
+          <!-- Preserve BAM execution evidence for every process except this agent GUI's own entry. -->
+          <Image condition="is">C:\Program Files (x86)\CentraStage\Gui.exe</Image>
+          <EventType condition="is">SetValue</EventType>
+          <TargetObject condition="contains">\Services\bam\State\UserSettings\</TargetObject>
+          <TargetObject condition="end with">\Program Files (x86)\CentraStage\Gui.exe</TargetObject>
+        </Rule>
+      </RegistryEvent>
+    </RuleGroup>
+  </EventFiltering>
+</Sysmon>

@@ -120,6 +120,7 @@ filepath,priority
 11_file_create/include_writable_folders.xml,10
 12_13_14_registry_event/exclude_hklm_ccs_tcpip.xml,10
 12_13_14_registry_event/exclude_internet_explorer_settings.xml,10
+12_13_14_registry_event/exclude_managed_endpoint_churn.xml,10
 12_13_14_registry_event/exclude_microsoft_defender_for_endpoint.xml,10
 12_13_14_registry_event/exclude_microsoft_monitoring_agent.xml,10
 12_13_14_registry_event/exclude_noise.xml,10
@@ -273,6 +274,7 @@ filepath,priority
 5_process_ended/include_users_and_temp_folders.xml,10
 6_driver_loaded_into_kernel/exclude_intel_drivers.xml,10
 6_driver_loaded_into_kernel/exclude_microsoft_drivers.xml,10
+7_image_load/exclude_centrastage_gui_dotnet.xml,10
 7_image_load/exclude_cscript_scrobj.xml,10
 7_image_load/exclude_dotnet_load_powershell.xml,10
 7_image_load/exclude_office_vsto_plugins.xml,10
