@@ -875,6 +875,34 @@
           <Image condition="is">C:\Windows\System32\lsass.exe</Image>
           <DestinationPort condition="is">88</DestinationPort>
         </Rule>
+        <Rule name="Datto RMM agent HTTPS control plane" groupRelation="and">
+          <Image condition="is">C:\ProgramData\CentraStage\AEMAgent\AEMAgent.exe</Image>
+          <Protocol condition="is">tcp</Protocol>
+          <Initiated condition="is">true</Initiated>
+          <DestinationPort condition="is">443</DestinationPort>
+        </Rule>
+        <Rule name="WebRemote STUN discovery" groupRelation="and">
+          <Image condition="begin with">C:\ProgramData\CentraStage\AEMAgent\RMM.WebRemote\</Image>
+          <Image condition="end with">\RMM.RTC.Proxy\RMM.RTC.Proxy.exe</Image>
+          <Protocol condition="is">udp</Protocol>
+          <Initiated condition="is">true</Initiated>
+          <DestinationPort condition="is">3478</DestinationPort>
+        </Rule>
+        <Rule name="WebRemote inbound mDNS" groupRelation="and">
+          <Image condition="begin with">C:\ProgramData\CentraStage\AEMAgent\RMM.WebRemote\</Image>
+          <Image condition="end with">\RMM.RTC.Proxy\RMM.RTC.Proxy.exe</Image>
+          <Protocol condition="is">udp</Protocol>
+          <Initiated condition="is">false</Initiated>
+          <SourceIp condition="is any">224.0.0.251;ff02:0:0:0:0:0:0:fb;ff02::fb</SourceIp>
+          <SourcePort condition="is">5353</SourcePort>
+        </Rule>
+        <Rule name="Windows service host inbound mDNS" groupRelation="and">
+          <Image condition="is">C:\Windows\System32\svchost.exe</Image>
+          <Protocol condition="is">udp</Protocol>
+          <Initiated condition="is">false</Initiated>
+          <SourceIp condition="is any">224.0.0.251;ff02:0:0:0:0:0:0:fb;ff02::fb</SourceIp>
+          <SourcePort condition="is">5353</SourcePort>
+        </Rule>
         <Image condition="image">OneDrive.exe</Image>
         <Image condition="image">OneDriveStandaloneUpdater.exe</Image>
         <Image condition="end with">ownCloud\owncloud.exe</Image>
